@@ -99,15 +99,20 @@ struct ImagePicker_Previews: PreviewProvider {
         @State var image: Image?
 
         var body: some View {
-            VStack {
+            ZStack {
                 image?
                     .resizable()
-                    .frame(width: 300, height: 100)
-                    .scaledToFit()
+                    .blur(radius: 12)
+                    .edgesIgnoringSafeArea(.all)
 
-                Button("first") { first = .photoLibrary }
-                Button("second") { second = true }
-                Button("third") { third = true }
+                VStack {
+                    Button("First") { first = .photoLibrary }
+                    Button("Second") { second = true }
+                    Button("Third") { third = true }
+                }
+                .padding()
+                .background(Color.white)
+                .font(.title.bold())
             }
             .imagePicker($first) { image = $0.image }
             .imagePicker($second) { image = $0.image }
