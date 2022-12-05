@@ -117,9 +117,6 @@ struct ImagePicker_Previews: PreviewProvider {
         }
     }
 
-    @State static var first: UIImagePickerController.SourceType? = nil
-    @State static var second = false
-
     static var previews: some View {
         TestView()
     }
