@@ -96,17 +96,23 @@ struct ImagePicker_Previews: PreviewProvider {
         @State var second = false
         @State var third = false
 
+        @State var image: Image?
+
         var body: some View {
             VStack {
+                image?
+                    .resizable()
+                    .frame(width: 300, height: 100)
+                    .scaledToFit()
+
                 Button("first") { first = .photoLibrary }
                 Button("second") { second = true }
                 Button("third") { third = true }
             }
-            .imagePicker($first) { _ in }
-            .imagePicker($second) { _ in }
+            .imagePicker($first) { image = $0.image }
+            .imagePicker($second) { image = $0.image }
             .sheet(isPresented: $third) {
-                ImagePickerView(sourceType: .photoLibrary) { _ in
-                }
+                ImagePickerView(sourceType: .photoLibrary) { image = $0.image }
             }
         }
     }
