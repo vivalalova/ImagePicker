@@ -89,3 +89,32 @@ extension UIImagePickerController.SourceType: Identifiable {
         self.rawValue
     }
 }
+
+struct ImagePicker_Previews: PreviewProvider {
+    struct TestView: View {
+        @State var first: UIImagePickerController.SourceType? = nil
+        @State var second = false
+        @State var third = false
+
+        var body: some View {
+            VStack {
+                Button("first") { first = .photoLibrary }
+                Button("second") { second = true }
+                Button("third") { third = true }
+            }
+            .imagePicker($first) { _ in }
+            .imagePicker($second) { _ in }
+            .sheet(isPresented: $third) {
+                ImagePickerView(sourceType: .photoLibrary) { _ in
+                }
+            }
+        }
+    }
+
+    @State static var first: UIImagePickerController.SourceType? = nil
+    @State static var second = false
+
+    static var previews: some View {
+        TestView()
+    }
+}
